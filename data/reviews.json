@@ -1,0 +1,325 @@
+[
+  {
+    "review_id": "0cf9b434-2ff8-47a2-9aa4-a67f8b1cc36c",
+    "case_id": "CASE-002",
+    "status": "Accepted",
+    "reviewer_name": "Demo reviewer",
+    "corrected_diagnosis": null,
+    "reason": "Reviewed and accepted",
+    "reviewed_at": "2026-08-30T00:51:08.823060Z",
+    "diagnosis_snapshot": null
+  },
+  {
+    "review_id": "63d75970-85b3-4b1c-8d19-cfc2bd71ca25",
+    "case_id": "CASE-001",
+    "status": "Accepted",
+    "reviewer_name": "reviewer",
+    "corrected_diagnosis": null,
+    "reason": null,
+    "reviewed_at": "2026-08-30T00:51:08.823064Z",
+    "diagnosis_snapshot": null
+  },
+  {
+    "review_id": "6f6c92c2-8dc6-4112-b98c-87312e585be1",
+    "case_id": "CASE-003",
+    "status": "Accepted",
+    "reviewer_name": "reviewer",
+    "corrected_diagnosis": null,
+    "reason": null,
+    "reviewed_at": "2026-08-30T00:51:08.822643Z",
+    "diagnosis_snapshot": {
+      "root_cause": "Native VLAN mismatch on trunk",
+      "osi_layer": "Layer 2",
+      "confidence": "high",
+      "evidence": [
+        "show interfaces trunk reports native vlan mismatch"
+      ],
+      "next_command": "show interfaces trunk",
+      "fix_steps": [
+        "Compare trunk mode, native VLAN, and allowed VLAN lists on both switches.",
+        "Align the trunk configuration after human approval."
+      ],
+      "alternative_hypotheses": [],
+      "verification_command": "show interfaces trunk",
+      "verification_expected_result": "Both trunk ends report the same native VLAN and required VLANs are forwarding.",
+      "safety_note": "A human reviewer must validate this recommendation before applying changes.",
+      "source": "fallback"
+    }
+  },
+  {
+    "review_id": "d1b8e0b0-23c6-4e22-a970-920fd70247f2",
+    "case_id": "CASE-006",
+    "status": "Edited",
+    "reviewer_name": "Lab Reviewer",
+    "corrected_diagnosis": "Gateway mismatch confirmed",
+    "reason": null,
+    "reviewed_at": "2026-08-30T00:51:19.047598Z",
+    "diagnosis_snapshot": {
+      "root_cause": "Default gateway does not match the VLAN gateway",
+      "osi_layer": "Layer 3",
+      "confidence": "high",
+      "evidence": [
+        "ipconfig shows default gateway 192.168.50.1; SVI is 192.168.50.254"
+      ],
+      "next_command": "show ip interface brief",
+      "fix_steps": [
+        "Compare the host gateway with the active SVI or virtual gateway.",
+        "Correct the host or DHCP default-router setting after human approval."
+      ],
+      "alternative_hypotheses": [],
+      "verification_command": "ping <default-gateway>",
+      "verification_expected_result": "The client gateway matches the SVI or HSRP virtual IP and replies to ping.",
+      "safety_note": "A human reviewer must validate this recommendation before applying changes.",
+      "source": "fallback"
+    }
+  },
+  {
+    "review_id": "759d7d69-9eaa-437c-8ed6-5842f4cb5db6",
+    "case_id": "CASE-003",
+    "status": "Accepted",
+    "reviewer_name": "reviewer",
+    "corrected_diagnosis": null,
+    "reason": null,
+    "reviewed_at": "2026-08-30T00:51:22.300688Z",
+    "diagnosis_snapshot": {
+      "root_cause": "Native VLAN mismatch on trunk",
+      "osi_layer": "Layer 2",
+      "confidence": "high",
+      "evidence": [
+        "show interfaces trunk reports native vlan mismatch"
+      ],
+      "next_command": "show interfaces trunk",
+      "fix_steps": [
+        "Compare trunk mode, native VLAN, and allowed VLAN lists on both switches.",
+        "Align the trunk configuration after human approval."
+      ],
+      "alternative_hypotheses": [],
+      "verification_command": "show interfaces trunk",
+      "verification_expected_result": "Both trunk ends report the same native VLAN and required VLANs are forwarding.",
+      "safety_note": "A human reviewer must validate this recommendation before applying changes.",
+      "source": "fallback"
+    }
+  },
+  {
+    "review_id": "b9cc18ee-fe38-49ae-a6c0-39454a949b8c",
+    "case_id": "CASE-003",
+    "status": "Accepted",
+    "reviewer_name": "reviewer",
+    "corrected_diagnosis": null,
+    "reason": null,
+    "reviewed_at": "2026-08-30T00:52:29.924068Z",
+    "diagnosis_snapshot": {
+      "root_cause": "Native VLAN mismatch on trunk",
+      "osi_layer": "Layer 2",
+      "confidence": "high",
+      "evidence": [
+        "show interfaces trunk reports native vlan mismatch"
+      ],
+      "next_command": "show interfaces trunk",
+      "fix_steps": [
+        "Compare trunk mode, native VLAN, and allowed VLAN lists on both switches.",
+        "Align the trunk configuration after human approval."
+      ],
+      "alternative_hypotheses": [],
+      "verification_command": "show interfaces trunk",
+      "verification_expected_result": "Both trunk ends report the same native VLAN and required VLANs are forwarding.",
+      "safety_note": "A human reviewer must validate this recommendation before applying changes.",
+      "source": "fallback"
+    }
+  },
+  {
+    "review_id": "5d495090-694f-450b-862e-6667d9fd14fc",
+    "case_id": "CASE-003",
+    "status": "Accepted",
+    "reviewer_name": "reviewer",
+    "corrected_diagnosis": null,
+    "reason": null,
+    "reviewed_at": "2026-08-30T00:55:51.168098Z",
+    "diagnosis_snapshot": {
+      "root_cause": "Native VLAN mismatch on trunk",
+      "osi_layer": "Layer 2",
+      "confidence": "high",
+      "evidence": [
+        "show interfaces trunk reports native vlan mismatch"
+      ],
+      "next_command": "show interfaces trunk",
+      "fix_steps": [
+        "Compare trunk mode, native VLAN, and allowed VLAN lists on both switches.",
+        "Align the trunk configuration after human approval."
+      ],
+      "alternative_hypotheses": [],
+      "verification_command": "show interfaces trunk",
+      "verification_expected_result": "Both trunk ends report the same native VLAN and required VLANs are forwarding.",
+      "safety_note": "A human reviewer must validate this recommendation before applying changes.",
+      "source": "fallback"
+    }
+  },
+  {
+    "review_id": "d3de01eb-e047-45af-99c3-7b7937149370",
+    "case_id": "CASE-003",
+    "status": "Accepted",
+    "reviewer_name": "reviewer",
+    "corrected_diagnosis": null,
+    "reason": null,
+    "reviewed_at": "2026-08-30T01:00:09.380844Z",
+    "diagnosis_snapshot": {
+      "root_cause": "Native VLAN mismatch on trunk",
+      "osi_layer": "Layer 2",
+      "confidence": "high",
+      "evidence": [
+        "show interfaces trunk reports native vlan mismatch"
+      ],
+      "next_command": "show interfaces trunk",
+      "fix_steps": [
+        "Compare trunk mode, native VLAN, and allowed VLAN lists on both switches.",
+        "Align the trunk configuration after human approval."
+      ],
+      "alternative_hypotheses": [],
+      "verification_command": "show interfaces trunk",
+      "verification_expected_result": "Both trunk ends report the same native VLAN and required VLANs are forwarding.",
+      "safety_note": "A human reviewer must validate this recommendation before applying changes.",
+      "source": "fallback"
+    }
+  },
+  {
+    "review_id": "7b4c63bc-8fa6-4de8-8500-56a83cae7abf",
+    "case_id": "CASE-003",
+    "status": "Accepted",
+    "reviewer_name": "reviewer",
+    "corrected_diagnosis": null,
+    "reason": null,
+    "reviewed_at": "2026-08-30T01:00:56.345554Z",
+    "diagnosis_snapshot": {
+      "root_cause": "Native VLAN mismatch on trunk",
+      "osi_layer": "Layer 2",
+      "confidence": "high",
+      "evidence": [
+        "show interfaces trunk reports native vlan mismatch"
+      ],
+      "next_command": "show interfaces trunk",
+      "fix_steps": [
+        "Compare trunk mode, native VLAN, and allowed VLAN lists on both switches.",
+        "Align the trunk configuration after human approval."
+      ],
+      "alternative_hypotheses": [],
+      "verification_command": "show interfaces trunk",
+      "verification_expected_result": "Both trunk ends report the same native VLAN and required VLANs are forwarding.",
+      "safety_note": "A human reviewer must validate this recommendation before applying changes.",
+      "source": "fallback"
+    }
+  },
+  {
+    "review_id": "80668ff9-fd32-4228-a5e4-af52ba4c4446",
+    "case_id": "CASE-003",
+    "status": "Accepted",
+    "reviewer_name": "reviewer",
+    "corrected_diagnosis": null,
+    "reason": null,
+    "reviewed_at": "2026-08-30T01:16:45.767262Z",
+    "diagnosis_snapshot": {
+      "root_cause": "Native VLAN mismatch on trunk",
+      "osi_layer": "Layer 2",
+      "confidence": "high",
+      "evidence": [
+        "show interfaces trunk reports native vlan mismatch"
+      ],
+      "next_command": "show interfaces trunk",
+      "fix_steps": [
+        "Compare trunk mode, native VLAN, and allowed VLAN lists on both switches.",
+        "Align the trunk configuration after human approval."
+      ],
+      "alternative_hypotheses": [],
+      "verification_command": "show interfaces trunk",
+      "verification_expected_result": "Both trunk ends report the same native VLAN and required VLANs are forwarding.",
+      "safety_note": "A human reviewer must validate this recommendation before applying changes.",
+      "source": "fallback"
+    }
+  },
+  {
+    "review_id": "7416947b-bdc7-4bdc-aca8-0f84405060ae",
+    "case_id": "CASE-003",
+    "status": "Accepted",
+    "reviewer_name": "reviewer",
+    "corrected_diagnosis": null,
+    "reason": null,
+    "reviewed_at": "2026-08-30T01:23:40.372412Z",
+    "diagnosis_snapshot": {
+      "root_cause": "Native VLAN mismatch on trunk",
+      "osi_layer": "Layer 2",
+      "confidence": "high",
+      "evidence": [
+        "show interfaces trunk reports native vlan mismatch"
+      ],
+      "next_command": "show interfaces trunk",
+      "fix_steps": [
+        "Compare trunk mode, native VLAN, and allowed VLAN lists on both switches.",
+        "Align the trunk configuration after human approval."
+      ],
+      "alternative_hypotheses": [],
+      "verification_command": "show interfaces trunk",
+      "verification_expected_result": "Both trunk ends report the same native VLAN and required VLANs are forwarding.",
+      "safety_note": "A human reviewer must validate this recommendation before applying changes.",
+      "source": "fallback"
+    }
+  },
+  {
+    "review_id": "87b98dcf-5da0-4155-a6fd-c0282ccde2ce",
+    "case_id": "CASE-003",
+    "status": "Accepted",
+    "reviewer_name": "reviewer",
+    "corrected_diagnosis": null,
+    "reason": null,
+    "reviewed_at": "2026-08-30T10:48:44.428507Z",
+    "diagnosis_snapshot": {
+      "root_cause": "Native VLAN mismatch on trunk",
+      "osi_layer": "Layer 2",
+      "confidence": "high",
+      "evidence": [
+        "show interfaces trunk reports native vlan mismatch"
+      ],
+      "next_command": "show interfaces trunk",
+      "fix_steps": [
+        "Compare trunk mode, native VLAN, and allowed VLAN lists on both switches.",
+        "Align the trunk configuration after human approval."
+      ],
+      "alternative_hypotheses": [],
+      "verification_command": "show interfaces trunk",
+      "verification_expected_result": "Both trunk ends report the same native VLAN and required VLANs are forwarding.",
+      "safety_note": "A human reviewer must validate this recommendation before applying changes.",
+      "source": "fallback"
+    }
+  },
+  {
+    "review_id": "0ebfbb7b-2c32-4d25-ab22-3bbfbd03220d",
+    "case_id": "CASE-003",
+    "status": "Accepted",
+    "reviewer_name": "reviewer",
+    "corrected_diagnosis": null,
+    "reason": null,
+    "reviewed_at": "2026-08-30T12:03:31.366670Z",
+    "diagnosis_snapshot": {
+      "root_cause": "Native VLAN mismatch",
+      "osi_layer": "Layer 2",
+      "confidence": "medium",
+      "evidence": [
+        "show outputs: show interfaces trunk reports native vlan mismatch"
+      ],
+      "next_command": "show interfaces trunk",
+      "fix_steps": [
+        "Confirm native VLAN configuration on both switches after human review.",
+        "Verify trunk configuration and VLAN mapping.",
+        "Check for any firmware or software issues.",
+        "Reboot the switches if necessary.",
+        "Verify VLAN integrity and retest the trunk connection."
+      ],
+      "alternative_hypotheses": [
+        "Trunk configuration error",
+        "Firmware issue on one of the switches"
+      ],
+      "verification_command": "show interfaces trunk",
+      "verification_expected_result": "The native VLAN mismatch is resolved and trunk is stable.",
+      "safety_note": "Human review is required before any change.",
+      "source": "ollama"
+    }
+  }
+]

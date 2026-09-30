@@ -1,0 +1,33 @@
+case_id,expected_fault,ai_root_cause,osi_layer,confidence,source,matches_expected
+CASE-001,Missing inter-VLAN route,Missing inter-VLAN or static route,Layer 3,high,fallback,True
+CASE-002,ACL denies intended traffic,ACL denies intended traffic,Layer 4,high,fallback,True
+CASE-003,Native VLAN mismatch,Native VLAN mismatch on trunk,Layer 2,high,fallback,True
+CASE-004,VLAN is missing,Required VLAN is missing or inactive,Layer 2,high,fallback,True
+CASE-005,Wrong subnet mask,Subnet mask does not match the intended prefix,Layer 3,high,fallback,True
+CASE-006,Gateway mismatch,Default gateway does not match the VLAN gateway,Layer 3,high,fallback,True
+CASE-007,Interface shutdown,Interface is administratively down,Layer 1,high,fallback,True
+CASE-008,Physical link or cable issue,Physical link or cable issue,Layer 1,medium,fallback,True
+CASE-009,DHCP pool exhausted,DHCP pool is exhausted,Layer 7,high,fallback,True
+CASE-010,DHCP exclusion missing,DHCP pool includes a reserved gateway address,Layer 7,high,fallback,False
+CASE-011,DHCP relay missing,DHCP relay address is missing,Layer 3,high,fallback,True
+CASE-012,DNS address incorrect,Client DNS server address is incorrect,Layer 7,high,fallback,True
+CASE-013,DNS server unreachable,DNS server is unreachable,Layer 7,medium,fallback,True
+CASE-014,Static route next hop incorrect,Static route uses an incorrect next hop,Layer 3,high,fallback,True
+CASE-015,OSPF network statement missing,OSPF is not advertising the required network,Layer 3,high,fallback,True
+CASE-016,OSPF passive interface misconfigured,OSPF transit interface is passive,Layer 3,high,fallback,True
+CASE-017,NAT inside role missing,NAT inside role is missing,Layer 3,high,fallback,True
+CASE-018,NAT overload missing,NAT overload is missing for shared public addressing,Layer 3,high,fallback,True
+CASE-019,NAT match ACL is incorrect,NAT match ACL selects the wrong subnet,Layer 3,high,fallback,True
+CASE-020,Guest isolation ACL missing,Guest isolation ACL is missing,Layer 4,high,fallback,True
+CASE-021,SSID VLAN mapping incorrect,Guest SSID VLAN is not allowed on the AP trunk,Layer 2,high,fallback,True
+CASE-022,Wireless key mismatch,Wireless authentication key mismatch,Layer 2,high,fallback,True
+CASE-023,Duplicate IP address,Duplicate IP address detected,Layer 3,high,fallback,True
+CASE-024,VLAN not allowed on trunk,Required VLAN is missing or inactive,Layer 2,high,fallback,False
+CASE-025,Subinterface shutdown,Router subinterface is administratively down,Layer 2,high,fallback,True
+CASE-026,HSRP virtual gateway mismatch,Clients use the wrong HSRP virtual gateway,Layer 3,high,fallback,True
+CASE-027,ACL direction causes failure,ACL is applied in the wrong direction,Layer 4,high,fallback,True
+CASE-028,Port security violation,Port security violation shut down the access port,Layer 2,high,fallback,True
+CASE-029,STP blocked required path,Spanning Tree blocks the required path,Layer 2,medium,fallback,True
+CASE-030,MTU mismatch,MTU mismatch across routed link,Layer 3,high,fallback,True
+CASE-031,Guest DHCP scope or VLAN mismatch,Guest wireless client receives the staff DHCP scope,Layer 3,high,fallback,True
+CASE-032,Server gateway mismatch,Default gateway does not match the VLAN gateway,Layer 3,high,fallback,False

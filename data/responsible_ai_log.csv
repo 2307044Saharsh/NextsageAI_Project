@@ -1,0 +1,6 @@
+case_id,ai_output,human_correction,why_correction,review_status
+CASE-002,Assumed missing route,ACL denies intended traffic at Layer 4,show access-lists showed a deny line; the route existed so routing was not the fault,Edited
+CASE-006,Assumed DHCP outage,Gateway mismatch - client gateway 192.168.50.1 vs SVI 192.168.50.254,Client already had an IP; evidence pointed to wrong default gateway not pool exhaustion,Edited
+CASE-012,Assumed DNS service down,Incorrect DNS server address in DHCP,The supplied DNS IP was a typo (10.0.90.99); the server at 10.0.90.10 was healthy,Edited
+CASE-020,Suggested adding a broad permit,Guest isolation ACL missing with deny-first policy,Broad permit would weaken security; guest VLAN needs explicit deny to internal RFC1918 ranges,Rejected
+CASE-030,Assumed routing protocol failure,MTU mismatch on routed link,Large pings failed but small pings worked; interfaces showed MTU 1500 vs 1400 not an OSPF issue,Edited

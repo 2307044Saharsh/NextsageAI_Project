@@ -1,0 +1,292 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>NetSage — AI Network Troubleshooting & Analytics</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <div class="brand-block">
+        <div class="brand">Net<span>Sage</span> <span class="brand-badge">AI</span></div>
+        <p class="brand-tag">Human-in-the-loop diagnostic engine for Cisco Packet Tracer labs.</p>
+      </div>
+
+      <div class="nav-controls">
+        <div class="view-switcher" role="tablist">
+          <button type="button" class="view-tab active" id="tabWorkspace" role="tab" aria-selected="true">
+            <span class="tab-icon">🛠️</span> Lab Troubleshooter
+          </button>
+          <button type="button" class="view-tab" id="tabDashboard" role="tab" aria-selected="false">
+            <span class="tab-icon">📊</span> Analytics & Spreadsheet
+          </button>
+        </div>
+
+        <div class="live-pill" id="liveStatus">
+          <span class="pulse"></span>
+          Ready when you are
+        </div>
+      </div>
+    </header>
+
+    <!-- WORKSPACE VIEW -->
+    <div id="workspaceView" class="view-pane active">
+      <div class="metrics-row" id="metrics"></div>
+
+      <main class="workspace">
+        <aside class="sidebar panel">
+          <div class="sidebar-head">
+            <h2>Lab tickets</h2>
+            <p>Pick a ticket — or ask Sage anything below.</p>
+            <button type="button" class="btn btn-open-chat" id="openChatMode">💬 Open discussion (no ticket)</button>
+            <input type="search" id="caseSearch" placeholder="Search VLAN, DHCP, routing…" autocomplete="off">
+          </div>
+          <div class="case-list" id="caseList"></div>
+        </aside>
+
+        <section class="main-panel panel">
+          <div class="step-rail" id="stepRail">
+            <div class="step active" data-step="pick">
+              <span class="step-num">1</span>
+              <span class="step-label">Pick a case</span>
+            </div>
+            <div class="step" data-step="check">
+              <span class="step-num">2</span>
+              <span class="step-label">Check evidence</span>
+            </div>
+            <div class="step" data-step="diagnose">
+              <span class="step-num">3</span>
+              <span class="step-label">Get a suggestion</span>
+            </div>
+            <div class="step" data-step="review">
+              <span class="step-num">4</span>
+              <span class="step-label">You decide</span>
+            </div>
+          </div>
+
+          <div class="case-header" id="caseHeader">
+            <div class="case-meta">
+              <span class="case-chip" id="caseId">—</span>
+              <span class="severity-chip" id="severityChip">—</span>
+              <span class="concept-chip" id="conceptChip">—</span>
+            </div>
+            <h1 id="title">Welcome back — pick a lab ticket to start</h1>
+            <p class="lead" id="symptom">When a PC gets an IP but can't reach the server, is it VLAN, routing, DHCP, or something else? Let's walk through it together.</p>
+          </div>
+
+          <div class="action-bar">
+            <button class="btn btn-soft" id="validate" disabled>
+              <span class="btn-icon">🔍</span>
+              <span class="btn-text">Check the show commands</span>
+            </button>
+            <button class="btn btn-primary" id="diagnose" disabled>
+              <span class="btn-icon">💡</span>
+              <span class="btn-text">Ask Sage for a read on this</span>
+            </button>
+          </div>
+
+          <div class="content-grid">
+            <div class="evidence-panel">
+              <details class="evidence-block" open>
+                <summary>What the lab looks like</summary>
+                <p id="topology" class="body-copy">Select a ticket from the left to see the topology notes.</p>
+              </details>
+              <details class="evidence-block" open>
+                <summary>Show command output</summary>
+                <pre class="terminal" id="outputs"># show commands will appear here</pre>
+              </details>
+            </div>
+
+            <div class="conversation-panel">
+              <div class="conv-header">
+                <div class="sage-avatar" aria-hidden="true">S</div>
+                <div>
+                  <strong>Sage</strong>
+                  <span class="conv-sub" id="chatModeLabel">Ask anything about networking — not limited to lab tickets</span>
+                </div>
+              </div>
+              <div class="thread" id="thread">
+                <div class="bubble sage">
+                  <p>Hey — I'm Sage. You can pick a lab ticket <em>or</em> just type a question: your own scenario, study topics, what-if designs, or paste show output. I'll walk through my reasoning step by step. You still approve any fix.</p>
+                </div>
+              </div>
+              <form class="chat-composer" id="chatForm">
+                <label class="context-toggle">
+                  <input type="checkbox" id="includeCaseContext" checked>
+                  Include open ticket context when a case is selected
+                </label>
+                <div class="composer-row">
+                  <textarea id="chatInput" rows="2" placeholder="Ask anything… e.g. Why can my PC ping the gateway but not the server? What is HSRP? Paste show output here."></textarea>
+                  <button type="submit" class="btn btn-primary" id="sendChat">Send</button>
+                </div>
+              </form>
+            </div>
+          </div>
+
+          <div class="review-panel" id="review" hidden>
+            <div class="review-intro">
+              <h3>Your call — what do you think?</h3>
+              <p>No fix is applied automatically. Sign off below, then verify in Packet Tracer.</p>
+            </div>
+            <label class="field-label" for="reviewerName">Your name</label>
+            <input type="text" id="reviewerName" maxlength="80" placeholder="e.g. Alex, Lab Team 2">
+            <label class="field-label" for="correction">Notes <span class="optional">(required if you edit or reject)</span></label>
+            <textarea id="correction" rows="3" placeholder="What did Sage get right or wrong? What would you tell a junior engineer?"></textarea>
+            <div class="review-actions">
+              <button class="btn btn-accept" data-status="Accepted">Looks good — accept it</button>
+              <button class="btn btn-edit" data-status="Edited">Close, but I'd tweak it</button>
+              <button class="btn btn-reject" data-status="Rejected">Nope — reject this</button>
+            </div>
+            <p class="feedback" id="reviewMessage"></p>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <!-- ANALYTICS & SPREADSHEET DASHBOARD VIEW -->
+    <div id="dashboardView" class="view-pane" hidden>
+      <div class="dash-hero panel">
+        <div class="dash-hero-content">
+          <h2>📊 Network Troubleshooting Intelligence & Live Spreadsheet</h2>
+          <p>Real-time analytics across all 32 Packet Tracer lab cases, fault category distributions, AI diagnostic agreement rates, and human oversight logs.</p>
+        </div>
+        <div class="dash-hero-actions">
+          <button type="button" class="btn btn-soft" id="btnRefreshDash">
+            <span class="btn-icon">🔄</span> Refresh
+          </button>
+          <button type="button" class="btn btn-primary" id="btnExportCsv">
+            <span class="btn-icon">📥</span> Export Spreadsheet (.csv)
+          </button>
+        </div>
+      </div>
+
+      <!-- KPI METRICS ROW -->
+      <div class="metrics-row dash-metrics" id="dashMetrics"></div>
+
+      <!-- INTERACTIVE CHARTS GRID -->
+      <div class="charts-grid">
+        <!-- Chart 1: Issue Themes & Concepts -->
+        <div class="chart-card panel">
+          <div class="chart-header">
+            <h3>🔀 Fault Distribution by Theme & Concept</h3>
+            <span class="chart-sub">Counts across 8 networking domains</span>
+          </div>
+          <div class="chart-body" id="chartConcepts"></div>
+        </div>
+
+        <!-- Chart 2: AI vs Human Agreement -->
+        <div class="chart-card panel">
+          <div class="chart-header">
+            <h3>🎯 AI Diagnostic Agreement & Review Status</h3>
+            <span class="chart-sub">Human-in-the-loop oversight breakdown</span>
+          </div>
+          <div class="chart-body" id="chartAgreement"></div>
+        </div>
+
+        <!-- Chart 3: Severity Breakdown -->
+        <div class="chart-card panel">
+          <div class="chart-header">
+            <h3>⚡ Case Severity Breakdown</h3>
+            <span class="chart-sub">Impact rating across all lab cases</span>
+          </div>
+          <div class="chart-body" id="chartSeverity"></div>
+        </div>
+
+        <!-- Chart 4: Responsible AI Human Corrections -->
+        <div class="chart-card panel">
+          <div class="chart-header">
+            <h3>🛡️ Responsible AI Interventions</h3>
+            <span class="chart-sub">Documented human corrections of AI faults</span>
+          </div>
+          <div class="chart-body" id="chartCorrections"></div>
+        </div>
+      </div>
+
+      <!-- LIVE SPREADSHEET TABLE SECTION -->
+      <div class="spreadsheet-section panel">
+        <div class="spreadsheet-header">
+          <div>
+            <h3>📑 Live Case Spreadsheet & Review Ledger</h3>
+            <p class="body-copy">Interactive ground-truth vs AI diagnosis ledger with live search and multi-column filtering.</p>
+          </div>
+          <div class="table-counter" id="tableRowCount">Showing 32 cases</div>
+        </div>
+
+        <!-- Filters Bar -->
+        <div class="spreadsheet-toolbar">
+          <div class="search-box">
+            <input type="search" id="spreadSearch" placeholder="Search case ID, symptom, fault, notes…">
+          </div>
+          <div class="filter-group">
+            <label for="spreadConceptFilter">Theme:</label>
+            <select id="spreadConceptFilter">
+              <option value="">All Themes (All)</option>
+              <option value="VLAN">VLAN</option>
+              <option value="Routing">Routing</option>
+              <option value="Gateway">Gateway</option>
+              <option value="ACL">ACL</option>
+              <option value="DHCP">DHCP</option>
+              <option value="DNS">DNS</option>
+              <option value="NAT">NAT</option>
+              <option value="Wireless">Wireless</option>
+              <option value="Interface">Interface</option>
+            </select>
+          </div>
+          <div class="filter-group">
+            <label for="spreadStatusFilter">Review:</label>
+            <select id="spreadStatusFilter">
+              <option value="">All Review Statuses</option>
+              <option value="Accepted">Accepted</option>
+              <option value="Edited">Edited</option>
+              <option value="Rejected">Rejected</option>
+              <option value="Pending">Pending Review</option>
+            </select>
+          </div>
+          <div class="filter-group">
+            <label for="spreadSeverityFilter">Severity:</label>
+            <select id="spreadSeverityFilter">
+              <option value="">All Severities</option>
+              <option value="Critical">Critical</option>
+              <option value="High">High</option>
+              <option value="Medium">Medium</option>
+              <option value="Low">Low</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Spreadsheet Table Container -->
+        <div class="table-responsive">
+          <table class="spreadsheet-table" id="spreadsheetTable">
+            <thead>
+              <tr>
+                <th>Case ID</th>
+                <th>Theme / Concept</th>
+                <th>Layer</th>
+                <th>Severity</th>
+                <th>Symptom Telemetry</th>
+                <th>Expected Fault (Ground Truth)</th>
+                <th>AI Diagnosis</th>
+                <th>Review Status</th>
+                <th>Reviewer & Notes</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="spreadsheetBody">
+              <!-- Dynamically populated rows -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast-stack" id="toastStack" aria-live="polite"></div>
+  <script src="/static/app.js"></script>
+</body>
+</html>
+
